@@ -24,3 +24,12 @@ export const Colors = {
     tabIconSelected: tintColorDark,
   },
 };
+
+export const colorss = {
+  businessName: '#010C80',
+  slogan: '#77D4FC',
+  icon: '#77D4FC',
+  background: '#FFFFFF',
+  backgroundElements: '#010C80',
+  foregroundElements: '#FFFFFF',
+};
