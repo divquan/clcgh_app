@@ -15,17 +15,40 @@ import { OtpInput } from 'react-native-otp-entry';
 import { Colors, colorss } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import Logo from '@/components/Logo';
+import axios from 'axios';
+import { useLocalSearchParams } from 'expo-router';
+// import { tokenStorage } from '@/utils/storage';
 
 const { height } = Dimensions.get('window');
 const VerifyOTP = () => {
+  const { email } = useLocalSearchParams();
+
   const [otp, setOtp] = useState('');
   const mode = useColorScheme();
   const [loading, setLoading] = useState(false);
   console.log(mode);
 
-  const verifyOtp = () => {
+  const verifyOtp = async () => {
+    console.log(email);
     try {
       setLoading(true);
+
+      //       POST http://localhost:8000/auth/token/
+      // Content-Type: application/x-www-form-urlencoded
+
+      // email=ioenimil@gmail.com&token= 694199
+
+      const response = await axios.post(
+        'https://clcgh-backend.onrender.com/auth/token/',
+        {
+          email: 'email',
+          token: otp,
+        }
+      );
+      const token = response.data.token;
+      // tokenStorage.storeToken(token);
+      console.log(token);
+      //store token in mmkv
     } catch (e) {
     } finally {
       setLoading(false);
@@ -66,7 +89,7 @@ const VerifyOTP = () => {
             <ThemedText type='title' style={{}}>
               Verify OTP{' '}
             </ThemedText>
-            <ThemedText>Enter the OTP send to "your@email.com"</ThemedText>
+            <ThemedText>Enter the OTP send to "{email}"</ThemedText>
           </View>
           <View
             style={{

@@ -27,19 +27,27 @@ const Login = () => {
 
   const toast = useToast();
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(false);
+
   const handleLogin = async () => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailRegex.test(email)) {
+      setError(true);
+      toast.show('Invalid email', { type: 'danger' });
+      return;
+    }
     setLoading(true);
     try {
       const response = await axios.post(
-        'http://192.168.137.1:8000/auth/email/',
+        'https://clcgh-backend.onrender.com/auth/email/',
         {
-          email: 'johndoe@gmail.com',
+          email: 'divquan@gmail.com',
         }
       );
       console.log(response.data); // Handle successful response
 
       toast.show('OTP sent to your phone number', { type: 'success' });
-      router.navigate('/(auth)/otpScreen');
+      router.navigate({ pathname: '/(auth)/otpScreen', params: { email } });
     } catch (error: any) {
       console.error('error', error.message);
       toast.show(error.message, { type: 'fail' });
@@ -96,6 +104,7 @@ const Login = () => {
             <TextInput
               value={email}
               onPress={() => {
+                setError(false);
                 setLoading(false);
               }}
               onChangeText={(text) => setEmail(text)}
@@ -103,7 +112,7 @@ const Login = () => {
               style={{
                 borderBottomWidth: 1,
                 borderRadius: 12,
-                borderColor: colorss.backgroundElements,
+                borderColor: error ? 'red' : colorss.backgroundElements,
                 color: colortheme === 'dark' ? 'white' : 'black',
                 height: 52,
                 fontSize: 16,
@@ -112,7 +121,7 @@ const Login = () => {
               cursorColor={colorss.backgroundElements}
             />
             <ThemedText style={{ marginLeft: 10, marginTop: 3 }}>
-              You will recieve an One-Time password{' '}
+              You will recieve an One-Time password on this email
             </ThemedText>
           </View>
         </View>

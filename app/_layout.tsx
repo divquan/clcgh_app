@@ -35,10 +35,10 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <ToastProvider>
-        <Stack initialRouteName='(auth)'>
+      <ToastProvider placement='top' offsetTop={30} style={{ width: '90%' }}>
+        <Stack initialRouteName='(app)'>
           <Stack.Screen name='(auth)' options={{ headerShown: false }} />
-          <Stack.Screen name='(app)' options={{ headerTitle: 'Home' }} />
+          <Stack.Screen name='(app)' options={{ headerShown: false }} />
           <Stack.Screen name='+not-found' />
         </Stack>
       </ToastProvider>
