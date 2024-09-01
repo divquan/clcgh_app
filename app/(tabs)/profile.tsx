@@ -5,9 +5,16 @@ import Constants from 'expo-constants';
 import { ThemedText } from '@/components/ThemedText';
 const profile = () => {
   return (
-    <ThemedView style={{ flex: 1 }}>
+    <ThemedView
+      style={{
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingBottom: 32,
+        paddingHorizontal: 16,
+      }}>
       <ThemedView>
         <ThemedText>Runtime Version:{Constants.expoRuntimeVersion}</ThemedText>
+        <ThemedText>Runtime Version:{Constants.systemVersion}</ThemedText>
       </ThemedView>
     </ThemedView>
   );
