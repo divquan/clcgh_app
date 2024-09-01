@@ -25,6 +25,7 @@ export default function TabLayout() {
           name='search'
           options={{
             title: 'Search',
+            headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'search-sharp' : 'search-outline'}

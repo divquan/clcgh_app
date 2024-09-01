@@ -8,7 +8,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
-  return <Redirect href={'/(tabs)/'} />;
+  return <Redirect href={'/(tabs)/(app)/homeScreen'} />;
 
   return (
     <Stack

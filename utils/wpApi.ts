@@ -19,17 +19,34 @@ const listPosts = async (): Promise<ListPostType[]> => {
   });
 };
 
-export { listPosts };
+const searchPosts = async (
+  searchTerm: string
+): Promise<SearchPostResponseType[]> => {
+  const respose = await axios.get(BASE_URL + 'search?search=' + searchTerm);
+  const responseData = respose.data;
+  console.log(responseData);
+  return responseData.map((data: any) => {
+    return {
+      id: data.id,
+      title: data.title,
+    };
+  });
+};
+export { listPosts, searchPosts };
 
 export type ListPostType = {
-  imageUrl: 'string';
-  id: 'string';
-  slug: 'string';
-  content: 'string';
-  title: 'string';
-  excerpt: 'string';
+  imageUrl: string;
+  id: string;
+  slug: string;
+  content: string;
+  title: string;
+  excerpt: string;
 };
 
+export type SearchPostResponseType = {
+  title: string;
+  id: number;
+};
 const some = [
   {
     id: 4159,

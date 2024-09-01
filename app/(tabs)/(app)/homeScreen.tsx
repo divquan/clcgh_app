@@ -18,7 +18,7 @@ import { Posts } from '@/components/PostsList';
 import { listPosts, ListPostType } from '@/utils/wpApi';
 import { useToast } from 'react-native-toast-notifications';
 
-const index = () => {
+const HomeScreen = () => {
   const [fetchingPosts, setFetchingPosts] = React.useState(false);
   const [posts, setPosts] = React.useState<ListPostType[]>([]);
 
@@ -53,7 +53,7 @@ const index = () => {
           paddingTop: 16,
           flex: 1,
         }}>
-        <CategoriesList />
+        {/* <CategoriesList /> */}
         <FeaturedPosts posts={posts.slice(0, 3)} />
 
         <Posts posts={posts} />
@@ -62,7 +62,7 @@ const index = () => {
   );
 };
 
-export default index;
+export default HomeScreen;
 
 const styles = StyleSheet.create({});
 
@@ -94,7 +94,10 @@ const FeaturedPost = ({ postDetails }: { postDetails: ListPostType }) => {
   return (
     <Pressable
       onPress={() => {
-        router.push('/(tabs)/post');
+        router.push({
+          pathname: '/(tabs)/(app)/PostDetailsScreen',
+          params: { ...postDetails },
+        });
       }}>
       <ThemedView
         style={{

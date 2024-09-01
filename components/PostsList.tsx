@@ -24,9 +24,8 @@ export const Posts = ({ posts }: { posts: ListPostType[] }) => {
   );
 };
 
-const Post = ({ postDetails }: { postDetails: ListPostType }) => {
+export const Post = ({ postDetails }: { postDetails: ListPostType }) => {
   const router = useRouter();
-  const { content, excerpt, id, imageUrl, title } = postDetails;
   return (
     <Pressable
       style={{
@@ -36,17 +35,14 @@ const Post = ({ postDetails }: { postDetails: ListPostType }) => {
         padding: 10,
         gap: 13,
         alignItems: 'center',
-        // justifyContent: 'space-between',
       }}
       onPress={() => {
-        //@ts-ignore
         router.push({
-          pathname: '/(app)/post',
-          params: { title, content, imageUrl },
+          pathname: '/(app)/PostDetailsScreen',
+          params: { ...postDetails },
         });
       }}>
       <Animated.Image
-        // sharedTransitionTag={'post-image' + index}
         src={postDetails.imageUrl}
         style={{
           aspectRatio: 1,
@@ -56,7 +52,7 @@ const Post = ({ postDetails }: { postDetails: ListPostType }) => {
           borderRadius: 20,
           left: 0,
         }}></Animated.Image>
-      <ThemedView>
+      <ThemedView style={{ overflow: 'hidden', flex: 1 }}>
         <ThemedText
           type='defaultSemiBold'
           lineBreakMode='tail'
