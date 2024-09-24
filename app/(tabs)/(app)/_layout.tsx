@@ -8,6 +8,10 @@ export default function RootLayout() {
         name='postDetailsScreen'
         options={{ headerTitle: 'Post' }}
       />
+      <Stack.Screen
+        name='postDetailsScreenById'
+        options={{ headerTitle: 'Post' }}
+      />
       {/* <Stack.Screen name='+not-found' /> */}
     </Stack>
   );

@@ -24,7 +24,6 @@ const searchPosts = async (
 ): Promise<SearchPostResponseType[]> => {
   const respose = await axios.get(BASE_URL + 'search?search=' + searchTerm);
   const responseData = respose.data;
-  console.log(responseData);
   return responseData.map((data: any) => {
     return {
       id: data.id,
@@ -32,7 +31,21 @@ const searchPosts = async (
     };
   });
 };
-export { listPosts, searchPosts };
+
+const getPostById = async (id: string): Promise<ListPostType> => {
+  const response = await axios.get(BASE_URL + 'posts/' + id);
+  const data = response.data as any;
+  console.log(data);
+  return {
+    imageUrl: data.jetpack_featured_media_url,
+    id: data.id,
+    slug: data.slug,
+    content: convert(data.content.rendered),
+    title: data.title.rendered,
+    excerpt: convert(data.excerpt.rendered),
+  };
+};
+export { listPosts, searchPosts, getPostById };
 
 export type ListPostType = {
   imageUrl: string;

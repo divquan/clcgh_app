@@ -20,44 +20,39 @@ import { Post, Posts } from '@/components/PostsList';
 import { colorss, ThemedColors } from '@/constants/Colors';
 import { ThemedText } from '@/components/ThemedText';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 const Search = () => {
   const SearchInput = () => {
-    const inputRef = useRef<TextInput | null>(null);
     const [searchValue, setSearchValue] = useState('');
     const [results, setResults] = useState<SearchPostResponseType[]>([]);
     const [loading, setLoading] = useState(false);
 
     const toast = useToast();
 
-    const handleInputChange = useCallback(
-      async (value: string) => {
-        setSearchValue(value);
-        setLoading(true);
-        try {
-          const response = await searchPosts(value);
-
-          setResults(response);
-        } catch (error: any) {
+    const handleInputChange = useCallback(async (value: string) => {
+      setSearchValue(value);
+      setLoading(true);
+      try {
+        const response = await searchPosts(value);
+        setResults(response);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
           toast.show('Error searching for post: ' + error.message, {
             type: 'danger',
           });
-        } finally {
-          setLoading(false);
+        } else {
+          toast.show('An unknown error occurred', { type: 'danger' });
         }
-      },
-      [searchValue]
-    );
-
-    useEffect(() => {
-      inputRef.current?.focus();
-      // console.log('done');
+      } finally {
+        setLoading(false);
+      }
     }, []);
+
     return (
       <ThemedView style={{ padding: 2, flex: 1 }}>
-        <ThemedView>
+        <ThemedView style={{ position: 'relative' }}>
           <TextInput
-            ref={inputRef}
             placeholder='Search for articles'
             style={{
               paddingHorizontal: 12,
@@ -80,40 +75,7 @@ const Search = () => {
       </ThemedView>
     );
   };
-  const Results = ({ results }: { results: SearchPostResponseType[] }) => {
-    return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={{ flex: 1 }} contentContainerStyle={{}}>
-          {results.map((item) => {
-            return (
-              <Pressable
-                onPress={() => {}}
-                key={item.id}
-                style={({ pressed }) => ({
-                  paddingVertical: 14,
-                  paddingLeft: 10,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 8,
-                  borderBottomWidth: 1,
-                  borderColor: 'gray',
-                  opacity: pressed ? 0.5 : 1,
-                })}>
-                <Ionicons
-                  name='search-outline'
-                  size={24}
-                  color={ThemedColors().icon}
-                />
-                <ThemedText type='link' style={{}}>
-                  {item.title}
-                </ThemedText>
-              </Pressable>
-            );
-          })}
-        </ScrollView>
-      </View>
-    );
-  };
+
   return (
     <ThemedView
       style={{
@@ -126,5 +88,47 @@ const Search = () => {
 };
 
 export default Search;
+
+const Results = ({ results }: { results: SearchPostResponseType[] }) => {
+  const router = useRouter();
+  const themedColors = ThemedColors();
+
+  return (
+    <View style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{}}>
+        {results.map((item) => (
+          <Pressable
+            onPress={() => {
+              router.push({
+                pathname: '/(app)/postDetailsScreenById',
+                params: {
+                  id: item.id,
+                  title: item.title,
+                },
+              });
+            }}
+            key={item.id}
+            style={({ pressed }) => ({
+              paddingVertical: 14,
+              paddingLeft: 10,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 8,
+              borderBottomWidth: 1,
+              borderColor: 'gray',
+              opacity: pressed ? 0.5 : 1,
+            })}>
+            <Ionicons
+              name='search-outline'
+              size={24}
+              color={themedColors.icon}
+            />
+            <ThemedText type='link'>{item.title}</ThemedText>
+          </Pressable>
+        ))}
+      </ScrollView>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({});
