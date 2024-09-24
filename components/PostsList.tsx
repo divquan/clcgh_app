@@ -38,7 +38,7 @@ export const Post = ({ postDetails }: { postDetails: ListPostType }) => {
       }}
       onPress={() => {
         router.push({
-          pathname: '/(app)/PostDetailsScreen',
+          pathname: '/(app)/postDetailsScreen',
           params: { ...postDetails },
         });
       }}>

@@ -95,7 +95,7 @@ const FeaturedPost = ({ postDetails }: { postDetails: ListPostType }) => {
     <Pressable
       onPress={() => {
         router.push({
-          pathname: '/(tabs)/(app)/PostDetailsScreen',
+          pathname: '/(tabs)/(app)/postDetailsScreen',
           params: { ...postDetails },
         });
       }}>
