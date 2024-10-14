@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { ThemedView } from '@/components/ThemedView';
 import Animated from 'react-native-reanimated';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
 import src from 'react-native-network-logger';
 import { storage, tokenStorage } from '@/utils/storage';
@@ -16,6 +16,11 @@ import { getPostById, ListPostType } from '@/utils/wpApi';
 import { useToast } from 'react-native-toast-notifications';
 
 const PostDetailsScreenById = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
   const params = useLocalSearchParams();
   const [postDetails, setPostDetails] = useState<null | ListPostType>(null);
   const [loading, setLoading] = useState(false);

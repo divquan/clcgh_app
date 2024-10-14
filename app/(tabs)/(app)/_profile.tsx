@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { ThemedView } from '@/components/ThemedView';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Constants from 'expo-constants';
 import { ThemedText } from '@/components/ThemedText';
-const profile = () => {
+import Button from '@/components/Button';
+const Profile = () => {
   return (
     <ThemedView
       style={{
@@ -13,13 +15,18 @@ const profile = () => {
         paddingHorizontal: 16,
       }}>
       <ThemedView>
-        <ThemedText>Runtime Version:{Constants.expoRuntimeVersion}</ThemedText>
-        <ThemedText>Runtime Version:{Constants.systemVersion}</ThemedText>
+        <ThemedView>
+          <MaterialIcons name='update' size={24} color='black' />
+          <ThemedText>Updates</ThemedText>
+        </ThemedView>
+        <Button>
+          <Text>Check for updates</Text>
+        </Button>
       </ThemedView>
     </ThemedView>
   );
 };
 
-export default profile;
+export default Profile;
 
 const styles = StyleSheet.create({});

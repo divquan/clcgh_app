@@ -23,6 +23,18 @@ const storeRecentlyOpenedPost = (postData: ListPostType) => {
   storage.set(RECENTPOSTS_KEY, JSON.stringify([postData, ...items]));
 };
 
+const retrieveBookmarks = () => {
+  const serializedArray = storage.getString(RECENTPOSTS_KEY);
+  return (serializedArray ? JSON.parse(serializedArray) : []) as ListPostType[];
+};
+const addBookmark = (postData: ListPostType) => {
+  const items = getRecentlyOpenedPosts();
+  if (items.find((it) => it.id === postData.id)) {
+    return;
+  }
+  storage.set(RECENTPOSTS_KEY, JSON.stringify([postData, ...items]));
+};
+
 export const tokenStorage = {
   storeToken,
   getToken,
