@@ -89,7 +89,7 @@ const Profile = () => {
                   })
                   .catch((e) => toast.show(JSON.stringify(e)))
                   .finally(() => {
-                    setLoading(true);
+                    setLoading(false);
                   });
                 return;
               }

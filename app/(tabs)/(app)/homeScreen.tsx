@@ -49,13 +49,11 @@ const HomeScreen = () => {
       }>
       <ThemedView
         style={{
-          paddingHorizontal: 16,
-          paddingTop: 16,
+          paddingHorizontal: 7,
           flex: 1,
         }}>
-        {/* <CategoriesList /> */}
+        <CategoriesList />
         <FeaturedPosts posts={posts.slice(0, 3)} />
-
         <Posts posts={posts} />
       </ThemedView>
     </ScrollView>
@@ -73,7 +71,9 @@ const FeaturedPosts = ({ posts }: { posts: ListPostType[] }) => {
       style={{
         marginTop: 32,
       }}>
-      <ThemedText type='defaultSemiBold'>Featured Posts</ThemedText>
+      <ThemedText type='subtitle' style={{ marginBottom: 8 }}>
+        Featured Posts
+      </ThemedText>
       <ScrollView
         horizontal
         pagingEnabled
@@ -120,7 +120,7 @@ const FeaturedPost = ({ postDetails }: { postDetails: ListPostType }) => {
 const CategoriesList = () => {
   return (
     <ThemedView style={{ marginTop: 12 }}>
-      <ThemedText style={{}} type='defaultSemiBold'>
+      <ThemedText type='subtitle' style={{ marginBottom: 8 }}>
         Categories
       </ThemedText>
       <ThemedView style={{ flexDirection: 'row' }}>

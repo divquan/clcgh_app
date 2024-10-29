@@ -35,9 +35,24 @@ const addBookmark = (postData: ListPostType) => {
   storage.set(RECENTPOSTS_KEY, JSON.stringify([postData, ...items]));
 };
 
+const setBookmarks = (bookmarks: ListPostType[]) => {
+  storage.set(RECENTPOSTS_KEY, JSON.stringify(bookmarks));
+  return;
+};
 export const tokenStorage = {
   storeToken,
   getToken,
   storeRecentlyOpenedPost,
   getRecentlyOpenedPosts,
+};
+
+export const RecentlyOpenedPost = {
+  get: getRecentlyOpenedPosts,
+  set: storeRecentlyOpenedPost,
+};
+
+export const BookmarksStorage = {
+  get: retrieveBookmarks,
+  set: setBookmarks,
+  add: addBookmark,
 };

@@ -26,6 +26,7 @@ const PostDetailsScreenById = () => {
   const [loading, setLoading] = useState(false);
   const { title, id } = params as ListPostType;
   const toast = useToast();
+
   useEffect(() => {
     setLoading(true);
     getPostById(id)

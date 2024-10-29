@@ -8,6 +8,8 @@ export default function TabLayout() {
         screenOptions={{
           // tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
           headerShown: false,
+          // tabBarIconStyle: { paddingVertical: 10 },
+          // tabBarStyle: { height: 60 },
         }}>
         <Tabs.Screen
           name='(app)'
@@ -38,6 +40,7 @@ export default function TabLayout() {
           name='bookmarks'
           options={{
             title: 'Bookmarks',
+            headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'bookmark' : 'bookmark-outline'}

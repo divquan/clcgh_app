@@ -58,5 +58,5 @@ export type ListPostType = {
 
 export type SearchPostResponseType = {
   title: string;
-  id: number;
+  id: number | string;
 };

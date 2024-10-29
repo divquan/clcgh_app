@@ -1,18 +1,20 @@
 import { useRouter } from 'expo-router';
 import { ThemedText } from './ThemedText';
 import { ThemedView } from './ThemedView';
-import { Pressable } from 'react-native';
+import { Dimensions, Pressable } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { ListPostType } from '@/utils/wpApi';
 
+const { height } = Dimensions.get('window');
 export const Posts = ({ posts }: { posts: ListPostType[] }) => {
   return (
     <ThemedView
       style={{
         marginTop: 32,
         flex: 1,
+        minHeight: height * 0.5,
       }}>
-      <ThemedText style={{}} type='defaultSemiBold'>
+      <ThemedText type='subtitle' style={{ marginLeft: 16, marginBottom: 8 }}>
         Posts
       </ThemedText>
       <ThemedView style={{ flex: 1 }}>
